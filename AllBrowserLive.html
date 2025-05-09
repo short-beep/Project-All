@@ -1,0 +1,1410 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- below originally from https://vjs.zencdn.net/8.3.0/video-js.css -->
+<link href="supportingCode/video-js.css" rel="stylesheet" /> 
+<!-- https://vjs.zencdn.net/8.3.0/video.min.js -->
+<script defer src="supportingCode/video.min.js"></script>
+
+<style>
+
+html, body {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+
+.grid-container-clock {
+  display: grid;
+  /*grid-template-columns: auto auto auto auto auto auto auto auto; /* colums auto width*/
+  grid-template-columns: 9% 9% 9% 9% 9% 9% auto  7% 7% 375px; /* colums auto width*/
+  background-color: #000000;
+  padding: 0px;
+  height: 12%;
+  width: 100%;
+  align-items: center;
+}
+
+.grid-item-clock {
+  background-color: #000000;
+  text-align: center;
+  width: 100%;
+  height: 120%;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.grid-container-left-side-of-screen {
+  display: grid;
+  grid-template-columns: auto auto; /*4 colums */
+  background-color: #000000;
+  padding: 0px;
+  height: 88%;
+  width: 38%;
+  float: left
+/*  width: 38%;*/
+}
+
+
+.grid-container-right-side-of-screen {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  background-color: #000000;
+  padding: 0px;
+  height: 88%;
+  width: 62%;
+  float: right;
+}
+
+.grid-item-individual-video {
+  background-color: #000000;
+  padding: 0px;
+  /* Height is set in teh HTMSL video tag 
+		For some rason only the first video height and width matters, all other videos obey that
+  */
+/*having issues with sizes with the videos, teh below at least forces the Divs to stay the same size. 07/03/2025*/
+
+}
+
+.grid-item-individual-video-large {
+  background-color: #000000;
+  padding: 0px;
+ }
+
+
+
+.grid-item-misc {
+  background-color: #000000;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/*TABS 2 CSS*/
+
+  /* Style the tab */
+  .tabNavigation2 {
+    overflow: hidden;
+    background-color: #777777;
+  }
+
+  /* Style the buttons that are used to open the tab content */
+  .tabNavigation2 button {
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px;
+    transition: 0.3s;
+    background-color: #777777;
+  }
+
+  /* Change background color of buttons on hover */
+  .tabNavigation2 button:hover {
+    background-color: #777777;
+  }
+
+  /* Create an active/current tablink class */
+  .tabNavigation2 button.active {
+    background-color: #ccc;
+  }
+
+  /* Style the tab content */
+  .tabcontent2 {
+    display: none;
+    border-top: none;
+    background-color: #777777;
+    height: 100%;
+    width: 100%;
+
+
+  }
+
+/*END TABS CSS*/
+
+
+/*TABS 1 CSS*/
+
+	/* Style the tab */
+	.tabNavigation1 {
+	  overflow: hidden;
+	  background-color: #777777;
+	}
+
+	/* Style the buttons that are used to open the tab content */
+	.tabNavigation1 button {
+	  float: left;
+	  border: none;
+	  outline: none;
+	  cursor: pointer;
+	  padding: 8px;
+	  transition: 0.3s;
+	  background-color: #777777;
+	}
+
+	/* Change background color of buttons on hover */
+	.tabNavigation1 button:hover {
+	  background-color: #777777;
+	}
+
+	/* Create an active/current tablink class */
+	.tabNavigation1 button.active {
+	  background-color: #ccc;
+	}
+
+	/* Style the tab content */
+	.tabcontent1 {
+	  display: none;
+	  border-top: none;
+	  background-color: #777777;
+	  height: 100%;
+	  width: 100%;
+	}
+
+/*END TABS CSS*/
+
+/*TABS CSS*/
+
+  /* Style the tab */
+  .tabNavigation {
+    overflow: hidden;
+    background-color: #777777;
+  }
+
+  /* Style the buttons that are used to open the tab content */
+  .tabNavigation button {
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px;
+    transition: 0.3s;
+    background-color: #777777;
+  }
+
+  /* Change background color of buttons on hover */
+  .tabNavigation button:hover {
+    background-color: #777777;
+  }
+
+  /* Create an active/current tablink class */
+  .tabNavigation button.active {
+    background-color: #ccc;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    border-top: none;
+    background-color: #777777;
+    height: 100%;
+    width: 100%;
+  }
+
+/*END TABS CSS*/
+}
+
+</style>
+
+<!-- TABS 2 - cameras JAVASCRIPT -->
+<script>
+  function openTabCameras(evt2, tabName2) {
+  // Declare all variables
+  var k, tabcontent2, tablinks2;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent2 = document.getElementsByClassName("tabcontent2");
+  for (k = 0; k < tabcontent2.length; k++) {
+    tabcontent2[k].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks2 = document.getElementsByClassName("tablinks2");
+  for (k = 0; k < tablinks2.length; k++) {
+    tablinks2[k].className = tablinks2[k].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName2).style.display = "block";
+  evt2.currentTarget.className += " active";
+}
+
+
+</script>
+<!-- END TABS JAVASCRIPT -->
+
+<!-- TABS 1 JAVASCRIPT -->
+<script>
+	function openCity1(evt1, tabName1) {
+  // Declare all variables
+  var j, tabcontent1, tablinks1;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent1 = document.getElementsByClassName("tabcontent1");
+  for (j = 0; j < tabcontent1.length; j++) {
+    tabcontent1[j].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks1 = document.getElementsByClassName("tablinks1");
+  for (j = 0; j < tablinks1.length; j++) {
+    tablinks1[j].className = tablinks1[j].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName1).style.display = "block";
+  evt1.currentTarget.className += " active";
+}
+
+
+</script>
+<!-- END TABS JAVASCRIPT -->
+
+
+
+<!-- TABS JAVASCRIPT -->
+<script>
+  function openCity(evt, tabName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+</script>
+<!-- END TABS JAVASCRIPT -->
+
+
+
+</head>
+<body>
+<script src="https://cdn.logwork.com/widget/text.js"></script>
+
+
+
+<!-- CLOCKS -->
+<div class="grid-container-clock">
+
+		  <div class="grid-item-clock">
+		   <a href="https://logwork.com/current-time-in-los-angeles-united-states-california" class="clock-widget-text" data-width="230" data-timezone="America/Los_Angeles" data-language="en" data-textcolor="#d6d6d6" data-background="#000000" data-digitscolor="#d6d6d6">LA, USA</a>
+		  </div>
+
+		  <div class="grid-item-clock">
+		    <a href="https://logwork.com/current-time-in-new-york-united-states" class="clock-widget-text" data-width="230" data-timezone="America/New_York" data-language="en" data-textcolor="#d6d6d6" data-background="#000000" data-digitscolor="#d6d6d6">NYC, USA</a>
+		  </div>
+
+		  <div class="grid-item-clock">
+		    <a href="https://logwork.com/current-time-in-celje-slovenia" class="clock-widget-text" data-width="230" data-timezone="Europe/Ljubljana" data-language="en" data-textcolor="#d6d6d6" data-background="#000000" data-digitscolor="#d6d6d6">Slovenia</a>
+		  </div>
+
+		  <div class="grid-item-clock">
+		     <a href="https://logwork.com/current-time-in-dubai-united-arab-emirates-dubayy" class="clock-widget-text" data-width="230" data-timezone="Asia/Dubai" data-language="en" data-textcolor="#d6d6d6" data-background="#000000" data-digitscolor="#d6d6d6">Dubai</a>
+		  </div>
+
+		    <div class="grid-item-clock">
+		   <a href="https://logwork.com/current-time-in-auckland-new-zealand" class="clock-widget-text" data-width="230" data-timezone="Australia/Brisbane" data-language="en" data-textcolor="#d6d6d6" data-background="#000000" data-digitscolor="#d6d6d6">Brisbane</a>
+		  </div>
+
+		  <div class="grid-item-clock">
+		   <a href="https://logwork.com/current-time-in-auckland-new-zealand" class="clock-widget-text" data-width="230" data-timezone="Pacific/Auckland" data-language="en" data-textcolor="#d6d6d6" data-background="#000000" data-digitscolor="#d6d6d6">Auckland</a>
+		  </div>
+
+
+<!-- POWER CONSUPMTION AUSTRLIA -->
+<div class="grid-item-misc">
+    <iframe 
+        src='https://embed.global-roam.com/containers/b84259cb-881f-444d-8673-f289a071a257' 
+        style='border: none; background: white; width: 100%; height: 100%; transform: scale(0.9); /* Adjust the scale factor as needed */'
+    ></iframe>
+</div>
+
+
+
+
+		
+
+
+	 <!-- CURRENCY --> <!-- https://fx-w.io/exchange-rates/#close -->
+	<div class="grid-item-misc" style="padding-top: 50px">
+	   	 <fxwidget-er inverse="false" amount="1" decimals="4" large="false" shadow="false" symbol="false" flag="true" changes="true" grouping="false" border="false" main-curr="AUD" sel-curr="EUR,USD" background-color="#000000"></fxwidget-er><script async src="https://s.fx-w.io/widgets/exchange-rates/latest.js"></script>
+	</div>
+
+
+	<!-- CURRENCY 2-->
+	<div class="grid-item-misc" style="padding-top: 50px">
+		<fxwidget-er inverse="false" amount="1" decimals="" large="false" shadow="false" symbol="false" flag="true" changes="true" grouping="true" border="false" main-curr="BTC" sel-curr="USD,AUD" background-color="#000000"></fxwidget-er><script async src="https://s.fx-w.io/widgets/exchange-rates/latest.js"></script>
+	</div><!-- CURRENCY END -->
+
+  
+
+
+
+
+	<!-- TIMEZONE CONVERTER WIDGET from: https://www.worldtimebuddy.com/clock-widget -->
+	  <div class="grid-item-misc" style="width: 400px"> <!-- Below will not go bigger, width cannot eb cahnged... -->
+	   
+	   	<span class="wtb-ew-v1" style="width: 369px; padding-top: 10px; display:inline-block">
+	   		<script src="supportingCode/timezoneconvertercode.js"></script> <!-- https://www.worldtimebuddy.com/clock_widget.js?h=3202781&bc=000000&cn=Slovenia&wt=c2 -->
+	   		<i><a href="https://www.worldtimebuddy.com/">Time Converter</a></i>
+	   		<noscript><a href="https://www.worldtimebuddy.com/">Time Converter</a></noscript>
+	   		<script>window[wtb_event_widgets.pop()].init()</script>
+	   	</span>
+
+	  </div> <!-- TIMEZONE END -->
+
+
+</div><!-- BANNER END -->
+
+
+
+
+
+
+<!-- CAMERAS -->
+<div class="grid-container-left-side-of-screen">
+
+<!-- CELJSKA KOCA -->
+
+<!--   <div class="grid-item-individual-video">
+   <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_celjskoca02.jpg" width="490" height="278" muted="true" data-setup="{}"> 
+   <source src="https://cdn-004.whatsupcams.com/hls/si_celjskoca02.m3u8" type="application/x-mpegURL"/>
+  </div> -->
+
+
+
+
+
+<!-- Added this in, the jsut covers up teh 3x below divs to undo jsut emove this and uncommend the div camera above -->
+    <div class="grid-item-individual-video-large" style="background-color: white; width: 200%; height: 188%; z-index: 1;"> 
+      <!-- 188% is good to not overlap with cameras below - but it leaves black lines on either side-->
+   
+      
+      
+      <!--   DIV WITH MULTIPLE TABS -->
+            <div class="tabNavigation2">
+              <button class="tablinks2" onclick="openTabCameras(event, 'CeljskaKoca')" >Celjska Koca</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'Golte')">Golte</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'Rogla')">Rogla</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'RoglaField')">Rogla 2</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'Jasna')">Jasna</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'LJZooZebra')">Zebra</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'LJZooGiraffe')">Giraffe</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'VelikaPlanina')">Vel Planina</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'Postojna')">Postojna</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'Piran')">Piran</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'PiranTrg')" id="defaultOpen2">Piran Trg</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'Koper')">Koper</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'Medulin')">Medulin</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'Aljazera')">Aljazera</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'ADSB')">ASDB</button>
+              <button class="tablinks2" onclick="openTabCameras(event, 'LJU')">LJU</button>
+
+
+            </div>
+
+
+                <!-- Tab content -->
+                <div id="CeljskaKoca" class="tabcontent2">
+                     <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_celjskoca02.jpg" muted="true" data-setup="{}" style="height: 100%; width: 100%;">  
+                     <source src="https://cdn-004.whatsupcams.com/hls/si_celjskoca02.m3u8" type="application/x-mpegURL"/>
+                   </video>
+                </div>
+
+                <div id="Golte" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_golte3.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                       <source src="https://cdn-004.whatsupcams.com/hls/si_golte3.m3u8" type="application/x-mpegURL"/>
+                       </video>
+                </div>
+
+                <div id="Rogla" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_rogla1.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                       <source src="https://cdn-003.whatsupcams.com/hls/si_rogla1.m3u8" type="application/x-mpegURL"/>
+                       </video>
+                </div>
+
+                <div id="RoglaField" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_rogla2.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                       <source src="https://cdn-004.whatsupcams.com/hls/si_rogla2.m3u8" type="application/x-mpegURL"/>
+                       </video>
+                </div>
+
+
+                <div id="Jasna" class="tabcontent2">
+                        <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_jasna01.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                       <source src="https://cdn-006.whatsupcams.com/hls/si_jasna01.m3u8" type="application/x-mpegURL"/>
+                       </video>
+                </div>
+
+                <div id="LJZooZebra" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_zoolj11.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                      <source src="https://cdn-007.whatsupcams.com/hls/si_zoolj11.m3u8" type="application/x-mpegURL"/>
+                      </video>
+                </div>
+
+                <div id="LJZooGiraffe" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_ljzoo1.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                      <source src="https://cdn-004.whatsupcams.com/hls/si_ljzoo1.m3u8" type="application/x-mpegURL"/>
+                      </video>
+                </div>
+
+                <div id="Piran" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_piran06.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                      <source src="https://cdn-003.whatsupcams.com/hls/si_piran06.m3u8" type="application/x-mpegURL"/>
+                      </video>
+                </div>
+
+                <div id="PiranTrg" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_pirantartini.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                      <source src="https://cdn-005.whatsupcams.com/hls/si_pirantartini.m3u8" type="application/x-mpegURL"/>
+                      </video>
+                </div>
+
+                <div id="Koper" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_koper04.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                      <source src="https://cdn-006.whatsupcams.com/hls/si_koper04.m3u8" type="application/x-mpegURL"/>
+                      </video>
+                </div>
+
+                <div id="VelikaPlanina" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_velikaplanina05.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                       <source src="https://cdn-008.whatsupcams.com/hls/si_velikaplanina05.m3u8" type="application/x-mpegURL"/>
+                       </video>
+                </div>
+
+
+                <div id="Postojna" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_predjama01.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                       <source src="https://cdn-002.whatsupcams.com/hls/si_predjama01.m3u8" type="application/x-mpegURL"/>
+                       </video>
+                </div>
+
+                <div id="Medulin" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/hr_medulin02.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                      <source src="https://cdn-004.whatsupcams.com/hls/hr_medulin02.m3u8" type="application/x-mpegURL"/>
+                      </video>
+                </div>
+
+                <div id="Aljazera" class="tabcontent2">
+                      <video id="my-video" class="video-js" controls preload="auto" poster="https://www.aljazeera.com/wp-content/uploads/2020/12/image-37.jpg?h=540&w=961" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+                       <source src="https://live-hls-web-aje.getaj.net/AJE/05.m3u8" type="application/x-mpegURL"/>
+                       </video>
+                </div>
+
+                <!-- Try makign below avideo and m,age the iamge a poster?  -->
+                  <div id="LJU" class="tabcontent2" style="max-width: 978px; max-height: 525px; width: 100%; height: 100%; margin-bottom: -500px; table-layout: fixed; border-collapse: collapse; overflow: hidden;">
+                      <img 
+                        id="trafficCam1"
+                        data-src="https://www.smarnagora.com/kamera/Cam7.jpg"
+                        src="https://www.smarnagora.com/kamera/Cam7.jpg?t=0"
+                        style="width: 978px; height: 525px; object-fit: cover; display: block;"
+                        loading="lazy"
+                      />
+                </div>
+
+
+
+
+                <div id="ADSB" class="tabcontent2">
+                      <iframe src="https://globe.adsbexchange.com/?icao=7cf527" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+
+                <!-- THIS USED TO WORK: https://abc-iview-mediapackagestreams-2.akamaized.net/out/v1/6e1cc6d25ec0480ea099a5399d73bc4b/index.m3u8 -->
+
+
+
+
+
+                <script>
+                // Get the element with id="defaultOpen" and click on it - load default tab
+                document.getElementById("defaultOpen2").click();
+                </script>
+
+         
+
+      <!--   END DIV WITH MULTIPLE TABS -->
+
+
+    </div>
+
+
+
+
+ <!-- BEGIN COVERED UP BY TABS -->
+
+  <!-- <div class="grid-item-individual-video">
+     <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_pirantartini.jpg" width="489" height="278" muted="true" data-setup="{}" style="max-height: 278px; max-width: 489px">
+     <source src="https://cdn-005.whatsupcams.com/hls/si_pirantartini.m3u8" type="application/x-mpegURL"/>
+  </div>
+
+    
+  <div class="grid-item-individual-video" >
+     <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/hr_pula03.jpg" width="489" height="278" muted="true" data-setup="{}" style="max-height: 278px; max-width: 489px">
+     <source src="https://cdn-004.whatsupcams.com/hls/hr_pula03.m3u8"/>\
+  </div> 
+
+  <div class="grid-item-individual-video">
+     <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/hr_medulin02.jpg" width="489" height="278" muted="true" data-setup="{}" style="max-height: 278px; max-width: 489px">
+     <source src="https://cdn-004.whatsupcams.com/hls/hr_medulin02.m3u8" type="application/x-mpegURL"/>
+  </div> -->
+
+  <div class="grid-item-individual-video" style="height: 278px; width: 489px;">
+     <!-- placeholder -->
+  </div>
+
+  <div class="grid-item-individual-video" style="height: 278px; width: 489px;">
+     <!-- placeholder -->
+  </div>
+
+  <div class="grid-item-individual-video" style="height: 278px; width: 489px;">
+     <!-- placeholder -->
+  </div>
+
+<!-- END COVERED UP BY TABS -->
+
+
+
+
+<div class="grid-item-individual-video" style="z-index: 2;">
+  <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_zoolj11.jpg" width="489" height="278" muted="true" data-setup="{}" style="max-height: 278px; max-width: 489px">
+   <source src="https://cdn-007.whatsupcams.com/hls/si_zoolj11.m3u8" type="application/x-mpegURL"/>
+   </video>
+</div>
+
+<div class="grid-item-individual-video" style="z-index: 2;">
+   <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_pirantartini.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+   <source src="https://cdn-005.whatsupcams.com/hls/si_pirantartini.m3u8" type="application/x-mpegURL"/>
+   </video>
+</div>
+
+ <div class="grid-item-individual-video" style="z-index: 2;">
+   <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_ljzoo1.jpg" width="640"   height="264" muted="true" data-setup="{}">
+   <source src="https://cdn-004.whatsupcams.com/hls/si_ljzoo1.m3u8" type="application/x-mpegURL"/>
+  </div> 
+
+<div class="grid-item-individual-video" style="z-index: 2;">
+    <video id="my-video" class="video-js" controls preload="auto" poster="https://cdn.whatsupcams.com/snapshot/si_celjskoca02.jpg" width="489" height="278" muted="true" data-setup="{}" style="height: 100%; width: 100%;">
+    <source src="https://cdn-004.whatsupcams.com/hls/si_celjskoca02.m3u8" type="application/x-mpegURL"/>
+    </video>
+</div>
+
+<!-- Brisbane Live Camera 
+<div class="grid-item-individual-video">
+  <iframe 
+    src="https://www.youtube.com/embed/L8nGDY0UIZc?si=sXsrzSrUAxmCL637" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen 
+    style="width: 489px; height:278px;">
+  </iframe>
+
+ 
+</div>
+-->
+  
+
+ 
+
+<!-- 
+
+
+ LIVE Melbourne Cam   
+    <div class="grid-item-individual-video">
+   <iframe width="490" height="278" src="https://www.youtube.com/embed/l_8DrACHpwY?si=4mTaoWj3hNR06CEb" title="YouTube video player" frameborder="0" muted="true" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+ LIVE Brisbane Cam   
+    <div class="grid-item-individual-video">
+   <iframe width="490" height="278" src="https://www.youtube.com/embed/i-lFoyt5W3c?si=zF__eSc-Rqr5QYBJ" title="YouTube video player" frameborder="0" muted="true" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+-->
+
+
+
+</div>
+
+
+
+
+
+
+<!-- RIGHT SIDE OF THE SCREEN -->
+
+<div class="grid-container-right-side-of-screen">
+
+
+<!--   DIV WITH MULTIPLE TABS #1 - LEFT DIV -->
+    <div class="grid-item-misc" style="height: 184%; width: 200%; z-index: 1;">
+
+      <div class="tabNavigation1">
+        <button class="tablinks1" onclick="openCity1(event, 'Tab1')">ADSB BNE</button>
+        <button class="tablinks1" onclick="openCity1(event, 'Tab2')">ADSB MEL</button>
+        <button class="tablinks1" onclick="openCity1(event, 'Tab3')">AU Shares</button>
+        <button class="tablinks1" onclick="openCity1(event, 'Tab4')">US Stocks</button>
+        <button class="tablinks1" onclick="openCity1(event, 'Tab5')">X</button>
+        <button class="tablinks1" onclick="openCity1(event, 'Tab6')" >Road QLD</button>
+        <button class="tablinks1" onclick="openCity1(event, 'Tab7')" id="defaultOpen1">Road LJU</button>
+        
+      </div>
+
+
+      <!-- Tab content -->
+      <div id="Tab1" class="tabcontent1">
+        <iframe src="https://globe.adsbexchange.com/?icao=7cf527" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+
+      <div id="Tab2" class="tabcontent1">
+        <iframe src="https://globe.adsbexchange.com/?icao=7cf65c" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+
+
+      <div id="Tab3" class="tabcontent1">
+        
+          <!-- AU-->
+          <!-- TradingView Widget  -->
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+            {
+            "exchanges": [],
+            "dataSource": "AllAU",
+            "grouping": "sector",
+            "blockSize": "market_cap_basic",
+            "blockColor": "change",
+            "locale": "en",
+            "symbolUrl": "",
+            "colorTheme": "dark",
+            "hasTopBar": false,
+            "isDataSetEnabled": false,
+            "isZoomEnabled": true,
+            "hasSymbolTooltip": true,
+            "isMonoSize": false,
+            "width": "100%",
+            "height": "100%"
+          }
+            </script>
+          </div>
+          <!-- TradingView Widget END -->
+      </div>
+
+
+      <div id="Tab4" class="tabcontent1">
+        <!-- US-->
+          <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container">
+              <div class="tradingview-widget-container__widget"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+              {
+              "exchanges": [],
+              "dataSource": "AllUSA",
+              "grouping": "sector",
+              "blockSize": "market_cap_basic",
+              "blockColor": "change",
+              "locale": "en",
+              "symbolUrl": "",
+              "colorTheme": "dark",
+              "hasTopBar": false,
+              "isDataSetEnabled": false,
+              "isZoomEnabled": true,
+              "hasSymbolTooltip": true,
+              "isMonoSize": false,
+              "width": "100%",
+              "height": "100%"
+            }
+              </script>
+            </div>
+
+            <!-- TradingView Widget END -->
+      </div>
+
+
+
+<div id="Tab5" class="tabcontent1">
+        
+
+      </div>
+
+      
+
+
+      <div id="Tab6" class="tabcontent1" style="background-color: black;">
+
+
+          <table style="max-width: 794px; max-height: 724px; width: 100%; height: 100%; margin-bottom: -500px; table-layout: fixed; border-collapse: collapse; overflow: hidden;">
+          <tr>
+            <td style="padding: 10px;">
+              <img 
+                id="trafficCam1"
+                data-src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/Toowong_MtCootha_West.jpg"
+                src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/Toowong_MtCootha_West.jpg?t=0"
+                style="width: 380px; height: 300px; object-fit: cover; display: block;"
+                loading="lazy"
+              />
+            </td>
+            <td style="padding: 10px;">
+              <img 
+                id="trafficCam2"
+               data-src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/Indooroopilly_Western_Fwy_Sth.jpg"
+                src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/Indooroopilly_Western_Fwy_Sth.jpg?t=0" 
+                style="width: 380px; height: 300px; object-fit: cover; display: block;"
+                loading="lazy"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;">
+              <img 
+                id="trafficCam3"
+                data-src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/MRMETRO-1226.jpg"
+                src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/MRMETRO-1226.jpg?t=0" 
+                style="width: 380px; height: 300px; object-fit: cover; display: block;"
+                loading="lazy"
+              />
+              
+            </td>
+            <td style="padding: 10px;">
+               <img 
+                id="trafficCam4"
+                data-src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/MRMETRO-1214.jpg"
+                src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/MRMETRO-1214.jpg?t=0" 
+                style="width: 380px; height: 300px; object-fit: cover; display: block;"
+                loading="lazy"
+              />
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+      <!-- JavaScript to refresh images for road cameras - THIS IS USED FOR BOTH TABS-->
+          <script>
+            function refreshCameras() {
+              const images = document.querySelectorAll("img[id^='trafficCam']");
+              const timestamp = new Date().getTime(); // Unique timestamp to prevent caching
+
+              images.forEach((img) => {
+                const baseUrl = img.getAttribute('data-src');
+                img.src = `${baseUrl}?t=${timestamp}`;
+              });
+            }
+
+            // Initial load
+            refreshCameras();
+
+            // Refresh every 30 seconds
+            setInterval(refreshCameras, 30000);
+          </script>
+
+     
+
+      <div id="Tab7" class="tabcontent1" style="background-color: black;">
+        
+        
+        <table style="max-width: 794px; max-height: 724px; width: 100%; height: 100%; margin-bottom: -500px; table-layout: fixed; border-collapse: collapse; overflow: hidden;">
+          <tr>
+            <td style="padding: 10px;">
+              <img 
+                id="trafficCam1"
+                data-src="https://kamere.dars.si/kamere/Golovec/Portal_Nove_Jarse2.jpg?dt=1739139914865"
+                src="https://kamere.dars.si/kamere/Golovec/Portal_Nove_Jarse2.jpg?dt=1739139914865?t=0"
+                style="width: 370px; height: 301px; object-fit: cover; display: block;"
+                loading="lazy"
+              />
+            </td>
+            <td style="padding: 10px;">
+              <img 
+                id="trafficCam2"
+               data-src="https://kamere.dars.si/kamere/ljubljana/K14_Center_smer_Kozarje.jpg?dt=1739140248617"
+                src="https://kamere.dars.si/kamere/ljubljana/K14_Center_smer_Kozarje.jpg?dt=1739140248617?t=0" 
+                style="width: 370px; height: 301px; object-fit: cover; display: block;"
+                loading="lazy"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;">
+              <img 
+                id="trafficCam3"
+                data-src="https://kamere.dars.si/kamere/Golovec/Portal_Nove_Jarse1.jpg?dt=1746703832204"
+                src="https://kamere.dars.si/kamere/Golovec/Portal_Nove_Jarse1.jpg?dt=1746703832204?t=0" 
+                style="width: 370px; height: 301px; object-fit: cover; display: block;"
+                loading="lazy"
+              />
+              
+            </td>
+            <td style="padding: 10px;">
+               <img 
+                id="trafficCam4"
+                data-src="https://kamere.dars.si/kamere/ljubljana/Kam19_Sentvid.jpg?dt=1746703888531"
+                src="https://kamere.dars.si/kamere/ljubljana/Kam19_Sentvid.jpg?dt=1746703888531?t=0" 
+                style="width: 370px; height: 301px; object-fit: cover; display: block;"
+                loading="lazy"
+              />
+            </td>
+          </tr>
+        </table>
+
+
+      </div>
+      
+
+      <script>
+      // Get the element with id="defaultOpen" and click on it - load default tab
+      document.getElementById("defaultOpen1").click();
+      </script>
+
+    </div>
+
+<!--   END DIV WITH MULTIPLE TABS -->
+  
+
+
+<!-- PLACEHOLDER DIV FOR ALIGNMENT -->
+        <div class="grid-item-misc">
+       <iframe src="" width="100%" height="100%" frameborder="0"></iframe>
+      </div>  
+<!-- END PLACEHOLDER DIV FOR ALIGNMENT -->
+
+
+
+
+<!--   DIV WITH MULTIPLE TABS -->
+  	<div class="grid-item-misc" style="height: 184%; width: 200%; z-index: 1;">
+
+			<div class="tabNavigation">
+			  <button class="tablinks" onclick="openCity(event, 'ADSBBrisbane')" >ADSB BNE</button>
+        <button class="tablinks" onclick="openCity(event, 'ADSBMelbourne')">ADSB MEL</button>
+        <button class="tablinks" onclick="openCity(event, 'ADSBAdelaide')">ADSB ADL</button>
+			  <button class="tablinks" onclick="openCity(event, 'ADSBSlovenia')">ADSB SLO</button>
+			  <button class="tablinks" onclick="openCity(event, 'ADSBUSA')">ADSB USA</button>
+        <!-- <button class="tablinks" onclick="openCity(event, 'BNEALL')">BNE ALL</button>
+        <button class="tablinks" onclick="openCity(event, 'LJALL')">LJ ALL</button>
+        <button class="tablinks" onclick="openCity(event, 'DXBALL')">DXB ALL</button> -->
+        <button class="tablinks" onclick="openCity(event, 'RoadQLD')" >Road QLD</button>
+        <button class="tablinks" onclick="openCity(event, 'RoadCEL')"id="defaultOpen">Road CEL</button>
+        <button class="tablinks" onclick="openCity(event, 'RoadSLO')">Road SLO</button>
+        <button class="tablinks" onclick="openCity(event, 'RoadSLO2')">Road SLO2</button>
+			</div>
+
+
+			<!-- Tab content -->
+			<div id="ADSBBrisbane" class="tabcontent">
+			  <iframe src="https://globe.adsbexchange.com/?icao=7cf527" width="100%" height="100%" frameborder="0"></iframe>
+			</div>
+
+      <div id="ADSBMelbourne" class="tabcontent">
+        <iframe src="https://globe.adsbexchange.com/?icao=7cf65c" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+
+      <div id="ADSBAdelaide" class="tabcontent">
+        <iframe src="https://globe.adsbexchange.com/?icao=7c1c99" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+
+
+			<div id="ADSBSlovenia" class="tabcontent">
+			  <iframe src="https://globe.adsbexchange.com/?icao=501e10" width="100%" height="100%" frameborder="0"></iframe>
+			</div>
+
+
+			<div id="ADSBUSA" class="tabcontent">
+			  <iframe src="https://globe.adsbexchange.com/?icao=ae2edb" width="100%" height="100%" frameborder="0"></iframe>
+			</div>
+
+      <div id="BNEALL" class="tabcontent">
+        <iframe src="https://www.airnavradar.com/@-27.38420,129.03497,z4?widget=1&airport=bne&z=4&premium=true&lat=-27.38420&lng=129.03497" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+
+      <div id="LJALL" class="tabcontent">
+        <iframe src="https://www.radarbox.com/?widget=1&airport=lju&z=4&premium=true&lat=50.54161&lng=4.13395" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+
+      <div id="DXBALL" class="tabcontent">
+        <iframe src="https://www.airnavradar.com/@-27.38420,129.03497,z4?widget=1&airport=DXB&z=3&premium=true&lat=7.50208&lng=62.92299" width="100%" height="100%" frameborder="0"></iframe>
+      </div>
+
+
+<div id="RoadQLD" class="tabcontent" style="background-color: black;">
+
+                <table style="max-width: 794px; max-height: 724px; width: 100%; height: 100%; margin-bottom: -500px; table-layout: fixed; border-collapse: collapse; overflow: hidden;">
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam1"
+                      data-src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/MRMETRO-1213.jpg?1746254049126"
+                      src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/MRMETRO-1213.jpg?1746254049126?t=0" 
+                      style="width: 380px; height: 300px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam2"
+                      data-src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/MRMETRO-1225.jpg?1746254049126"
+                      src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/MRMETRO-1225.jpg?1746254049126?t=0"
+                      style="width: 380px; height: 300px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam3"
+                       data-src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/Rochedale_Pac_Mwy_Sth.jpg?1746254049126"
+                      src="https://cameras.qldtraffic.qld.gov.au/Metropolitan/Rochedale_Pac_Mwy_Sth.jpg?1746254049126?t=0" 
+                      style="width: 380px; height: 300px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam4"
+                      data-src="https://cameras.qldtraffic.qld.gov.au/Gold_Coast/MRSCHD-293.jpg?1746254049126.jpg"
+                      src="https://cameras.qldtraffic.qld.gov.au/Gold_Coast/MRSCHD-293.jpg?1746254049126?t=0" 
+                      style="width: 380px; height: 300px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  
+                </tr>
+              </table>
+
+      </div>
+
+
+<div id="RoadSLO" class="tabcontent" style="background-color: black;">
+
+                <table style="max-width: 794px; max-height: 724px; width: 100%; height: 100%; margin-bottom: -500px; table-layout: fixed; border-collapse: collapse; overflow: hidden;">
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam1"
+                      data-src="https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_34_L16.1_Pince&v=2817275001"
+                      src="https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_34_L16.1_Pince&v=2817275001?t=0" 
+                      style="width: 370px; height: 301px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam2"
+                      data-src="https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_11_L01.1_Slivnica&v=9666526171"
+                      src="https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_11_L01.1_Slivnica&v=9666526171?t=0"
+                      style="width: 370px; height: 301px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam3"
+                       data-src="https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_18_L06.1_Dragocova&v=3406650034489131296654553024"
+                      src="https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_18_L06.1_Dragocova&v=3406650034489131296654553024?t=0" 
+                      style="width: 370px; height: 301px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam4"
+                      data-src="https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_22_L08.2_Senarska&v=6308498722"
+                      src="https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_22_L08.2_Senarska&v=6308498722" 
+                      style="width: 370px; height: 301px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+
+                  <!-- https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_22_L08.2_Senarska&v=6308498722 -->
+                  
+                </tr>
+              </table>
+
+      </div>
+
+      <div id="RoadSLO2" class="tabcontent" style="background-color: black;">
+
+                <table style="max-width: 794px; max-height: 724px; width: 100%; height: 100%; margin-bottom: -500px; table-layout: fixed; border-collapse: collapse; overflow: hidden;">
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam1"
+                      data-src="https://www.drsc.si/kamere/KamSlike/Bled/slike/Bld1_0001.jpg"
+                      src="https://www.drsc.si/kamere/KamSlike/Bled/slike/Bld1_0001.jpg?t=0" 
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam2"
+                      data-src="https://www.drsc.si/kamere/kamslike/Pivka/slike/Piv1_0001.jpg"
+                      src="https://www.drsc.si/kamere/kamslike/Pivka/slike/Piv1_0001.jpg?t=0"
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam3"
+                       data-src="https://www.drsc.si/kamere/kamslike/Ratece/Slike/Rat1_0001.jpg"
+                      src="https://www.drsc.si/kamere/kamslike/Ratece/Slike/Rat1_0001.jpg?t=0" 
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam4"
+                      data-src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Celje_R430_Mariborska_Ul._Frankolovskih_%C5%BErtev_(S2)_-_VN.jpeg?dt=1746701537318"
+                      src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Celje_R430_Mariborska_Ul._Frankolovskih_%C5%BErtev_(S2)_-_VN.jpeg?dt=1746701537318" 
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+
+                  <!-- https://webcams2.asfinag.at/webcamviewer/CamPicServlet?user=webcamstartseite&wcsid=DARS-MariborIP_22_L08.2_Senarska&v=6308498722 -->
+                  
+                </tr>
+              </table>
+
+      </div>
+
+      <div id="RoadCEL" class="tabcontent" style="background-color: black;">
+
+                <table style="max-width: 794px; max-height: 724px; width: 100%; height: 100%; margin-bottom: -530px; table-layout: fixed; border-collapse: collapse; overflow: hidden;">
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam1"
+                      data-src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Celje_Mariborska_priklju%C4%8Dek_na_AC_VN1.jpeg?dt=1746701561714"
+                      src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Celje_Mariborska_priklju%C4%8Dek_na_AC_VN1.jpeg?dt=1746701561714?t=0" 
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam2"
+                      data-src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Celje_R430_Mariborska_Ul._Frankolovskih_%C5%BErtev_(S2)_-_VN.jpeg?dt=1746701537318"
+                      src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Celje_R430_Mariborska_Ul._Frankolovskih_%C5%BErtev_(S2)_-_VN.jpeg?dt=1746701537318?t=0"
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam3"
+                       data-src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Vojnik_Arclin_-_VN.jpeg?dt=1746701576128"
+                      src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Vojnik_Arclin_-_VN.jpeg?dt=1746701576128?t=0" 
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam4"
+                      data-src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Vojnik_(pokopali%C5%A1%C4%8De)_-_VN.jpeg?dt=1746701584918"
+                      src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Vojnik_(pokopali%C5%A1%C4%8De)_-_VN.jpeg?dt=1746701584918?t=0" 
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam5"
+                       data-src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Vojnik_center_Celjska_Breznikova_-_VN.jpeg?dt=1746701589012"
+                      src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Vojnik_center_Celjska_Breznikova_-_VN.jpeg?dt=1746701589012?t=0" 
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td style="padding: 10px;">
+                    <img 
+                      id="trafficCam6"
+                      data-src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Slovenske_Konjice_Liptovska_priklj._LIDL_-_VN2.jpeg?dt=1746702077149"
+                      src="https://kamere.dars.si/kamere/drsi_cuvpkamere/Slovenske_Konjice_Liptovska_priklj._LIDL_-_VN2.jpeg?dt=1746702077149?t=0" 
+                      style="width: 370px; height: 208px; object-fit: cover; display: block;"
+                      loading="lazy"
+                    />
+                  </td>
+                </tr>
+              </table>
+
+      </div>
+
+			<script>
+			// Get the element with id="defaultOpen" and click on it - load default tab
+			document.getElementById("defaultOpen").click();
+			</script>
+
+ 		</div>
+
+<!--   END DIV WITH MULTIPLE TABS -->
+
+		
+
+		  <div class="grid-item-misc">
+		   <iframe src="" width="100%" height="100%" frameborder="0"><!-- THIS DIV IS COVERED UP BY ABOVE --></iframe>
+		  </div> 
+
+		  <div class="grid-item-misc">
+		   <iframe src="" width="100%" height="100%" frameborder="0"><!-- THIS DIV IS COVERED UP BY ABOVE --></iframe>
+		  </div>
+
+		  <div class="grid-item-misc">
+		   <iframe src="" width="100%" height="100%" frameborder="0"><!-- THIS DIV IS COVERED UP BY ABOVE --></iframe>
+		  </div>
+
+		  <div class="grid-item-misc">
+		   <iframe src="" width="100%" height="100%" frameborder="0"><!-- THIS DIV IS COVERED UP BY ABOVE --></iframe>
+		  </div>
+
+		  <div class="grid-item-misc">
+		   <iframe src="" width="100%" height="100%" frameborder="0"><!-- THIS DIV IS COVERED UP BY ABOVE --></iframe>
+		  </div>
+
+
+
+
+<!-- 	 ALL FLIGHTS INTO bne
+ <div class="grid-item-misc">
+   <iframe width="100%" height="100%" src="https://www.radarbox.com/?widget=1&airport=bne&z=3&premium=true&lat=-26.42554&lng=133.17209" frameborder="0"></iframe>
+  </div> -->
+
+	<!-- ALL FLIGHTS INTO LJU -->
+  <div class="grid-item-misc" style="z-index: 2;">
+   <iframe width="100%" height="100%" src="https://www.radarbox.com/?widget=1&airport=lju&z=4&premium=true&lat=50.54161&lng=4.13395" frameborder="0"></iframe>
+  </div>
+
+  <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container" style="z-index: 2;">
+  <div class="tradingview-widget-container__widget"></div>
+  
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+  {
+  "colorTheme": "dark",
+  "dateRange": "12M",
+  "showChart": true,
+  "locale": "en",
+  "width": "100%",
+  "height": "100%",
+  "largeChartUrl": "",
+  "isTransparent": false,
+  "showSymbolLogo": true,
+  "showFloatingTooltip": false,
+  "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+  "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+  "gridLineColor": "rgba(42, 46, 57, 0)",
+  "scaleFontColor": "rgba(219, 219, 219, 1)",
+  "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+  "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+  "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+  "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
+  "symbolActiveColor": "rgba(41, 98, 255, 0.12)",
+  "tabs": [
+    {
+      "title": "Indices",
+      "symbols": [
+        {
+          "s": "FOREXCOM:SPXUSD",
+          "d": "S&P 500 Index"
+        },
+        {
+          "s": "CAPITALCOM:AU200",
+          "d": "Australia"
+        },
+        {
+          "s": "MARKETSCOM:EUROPE50",
+          "d": "europe"
+        },
+        {
+          "s": "SPARKS:CHINAX"
+        }
+      ],
+      "originalTitle": "Indices"
+    },
+    {
+      "title": "Futures",
+      "symbols": [
+        {
+          "s": "CME_MINI:ES1!",
+          "d": "S&P 500"
+        },
+        {
+          "s": "CME:6E1!",
+          "d": "Euro"
+        },
+        {
+          "s": "COMEX:GC1!",
+          "d": "Gold"
+        },
+        {
+          "s": "NYMEX:CL1!",
+          "d": "WTI Crude Oil"
+        },
+        {
+          "s": "NYMEX:NG1!",
+          "d": "Gas"
+        },
+        {
+          "s": "CBOT:ZC1!",
+          "d": "Corn"
+        }
+      ],
+      "originalTitle": "Futures"
+    },
+    {
+      "title": "Bonds",
+      "symbols": [
+        {
+          "s": "CBOT:ZB1!",
+          "d": "T-Bond"
+        },
+        {
+          "s": "CBOT:UB1!",
+          "d": "Ultra T-Bond"
+        },
+        {
+          "s": "EUREX:FGBL1!",
+          "d": "Euro Bund"
+        },
+        {
+          "s": "EUREX:FBTP1!",
+          "d": "Euro BTP"
+        },
+        {
+          "s": "EUREX:FGBM1!",
+          "d": "Euro BOBL"
+        }
+      ],
+      "originalTitle": "Bonds"
+    },
+    {
+      "title": "Forex",
+      "symbols": [
+        {
+          "s": "FX:EURUSD",
+          "d": "EUR to USD"
+        },
+        {
+          "s": "FX:GBPUSD",
+          "d": "GBP to USD"
+        },
+        {
+          "s": "FX:USDJPY",
+          "d": "USD to JPY"
+        },
+        {
+          "s": "FX:USDCHF",
+          "d": "USD to CHF"
+        },
+        {
+          "s": "FX:AUDUSD",
+          "d": "AUD to USD"
+        },
+        {
+          "s": "FX:USDCAD",
+          "d": "USD to CAD"
+        }
+      ],
+      "originalTitle": "Forex"
+    }
+  ]
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+
+
+
+<!-- WEATHER BNE -->
+   <div class="grid-item-misc" style="z-index: 2;">
+    <iframe width="100%" height="100%" src="https://embed.windy.com/embed2.html?lat=-40.581&lon=134.297&detailLat=-27.470&detailLon=153.020&width=650&height=450&zoom=3&level=surface&overlay=clouds&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+  </div>
+
+
+
+<!-- WEATHER MEL -->
+<!-- 
+
+<div class="grid-item-misc">
+    <iframe width="100%" height="100%" src="https://embed.windy.com/embed2.html?lat=-37.8136&lon=144.9631&detailLat=-37.8136&detailLon=144.9631&width=650&height=450&zoom=3&level=surface&overlay=clouds&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+  </div>
+
+ -->
+
+
+<!-- WEATHER SLO -->
+   <div class="grid-item-misc" style="z-index: 2;"> <!-- For double width, add style="height: 100%; width: 100%; z-index: 1;"-->
+   <iframe width="100%" height="100%" src="https://embed.windy.com/embed2.html?lat=43.229&lon=14.590&detailLat=46.050&detailLon=14.510&width=650&height=450&zoom=5&level=surface&overlay=clouds&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+  </div>
+
+
+
+
+</div>
+
+
+</body>
+</html>
+
+
+
+
+<!-- https://www.windy.com/-Embed-widget-on-page/widgets?-25.661,134.253,5 -->
+
+<!-- 
+Clock: https://logwork.com/clock-widget-text
+
+Forex: https://au.investing.com/webmaster-tools/exchange-rates-table
+
+
+https://www.whatsupcams.com/en/webcams/united-states/new-york/new-york/new-york-webcam-times-square-1560-broadway-view-live/
+
+
+
+https://isstracker.spaceflight.esa.int/
+
+
+
+Stock market and crypto: https://www.tradingview.com/widget/
+
+
+
+
+-----------BUGS-------------
+
+
+07/02/2025
+- Small cameras cannot be fullscreen as the max height limits them even when fullscree. If I remove this then teh large camera forces all toehr amers at be full HD 1920-1080. no idea how to fix this. 
+
+Tabs 1 and 2 do not work for ACTIVE hightlight of current tab
+
+
